@@ -12,7 +12,7 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
   
   ```js
   var Person = function(name){
-    this.name = name
+      this.name = name
   }
   ```
   

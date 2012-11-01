@@ -66,15 +66,15 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
 
   ```js
   var fragment = document.createDocumentFragment(),
-  	  i = 0,
-  	  l = 30,
-  	  elementCache;
+  	    i = 0,
+  	    l = 30,
+  	    elementCache;
   
   while(i < l){
-  	elementCache = document.createElement("p")
-  	elementCache.id = "element-" + i
-    fragment.appendChild(elementCache)
-    i++
+  	  elementCache = document.createElement("p")
+  	  elementCache.id = "element-" + i
+      fragment.appendChild(elementCache)
+      i++
   }
   
   document.body.appendChild(fragment)
@@ -90,24 +90,24 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
 
   ```js
   function moveTo(direction, amount){
-    // some code
-    if(direction == 0) amount = -amount
+      // some code
+      if(direction == 0) amount = -amount
   }
   var moveLeft = moveTo.curry(0),
-      moveRight = moveTo.curry(1)
+        moveRight = moveTo.curry(1)
   ```
   
 * Use a `window.setInterval` to limitate the functions called when `scroll` event is fired. 
 
   ```js
   var isScrollActive = false,
-  	  scrollInterval = window.setInterval(function(){
-        isScrollActive = false
-        // execute handler
-      });
+  	    scrollInterval = window.setInterval(function(){
+          isScrollActive = false
+          // execute handler
+        });
   
   window.addEventListener("scroll", function(){
-    isScrollActive = true
+      isScrollActive = true
   })
   
   ```

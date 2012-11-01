@@ -10,7 +10,7 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
 * Use variable names that make sense.
 * Constructor names should be capitalized.
   
-  ```
+  ```js
   var Person = function(name){
     this.name = name
   }
@@ -18,13 +18,13 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
   
 * Other variables should use a camelized name.
   
-  ```
+  ```js
   function scrollToElement(){ /* code here */ }
   ```
 
 * Use chaining. 
 
-   ```
+   ```js
    myElement.addClass("foo bar").insert("that text")
    ```
 
@@ -37,7 +37,7 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
 * Put your scripts right before `</body>`
 * Use a conditionnal `return` statement (as a `continue` or a `break` statement) if the function is not over and you don't need what is following. 
 
-  ```
+  ```js
     function foo(bar){
       if(!bar) return;
     }
@@ -50,7 +50,7 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
   * `""` instead of `new String`
 * Use `Array.join()` instead of a loop when it fits your needs. 
   
-  ```
+  ```js
  "<ul><li>" + ["foo", "bar", "baz"].join("</li><li>") + "</li></ul>"
   ```
 
@@ -64,7 +64,7 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
 
 * Use `documentFragment` to manipulate big amounts of nodes before inserting them inside the actual `document`. 
 
-  ```
+  ```js
   var fragment = document.createDocumentFragment(),
   	  i = 0,
   	  l = 30,
@@ -82,13 +82,13 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
 
 * Use `className` attribute over `style` when possible (moreover, it simplifies maintenance)
 
-  ```
+  ```js
   myElement.className += "active"
   ```
   
 * Don't repeat yourself (use a `Function#curry` like to reuse a function in different circumstances)
 
-  ```
+  ```js
   function moveTo(direction, amount){
     // some code
     if(direction == 0) amount = -amount
@@ -99,7 +99,7 @@ Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request 
   
 * Use a `window.setInterval` to limitate the functions called when `scroll` event is fired. 
 
-  ```
+  ```js
   var isScrollActive = false,
   	  scrollInterval = window.setInterval(function(){
         isScrollActive = false

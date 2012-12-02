@@ -59,9 +59,9 @@ myElement.addClass("foo bar").insert("that text")
 * Use a conditionnal `return` statement (as a `continue` or a `break` statement) if the function is not over and you don't need what is following. 
 
 ```javascript
-  function foo(bar){
-    if(!bar) return
-  }
+function foo(bar){
+  if(!bar) return
+}
 ```
   
 * Don't use `try{}catch(e){}`.
@@ -135,21 +135,21 @@ function moveTo(direction, amount){
     // some code
     if(direction == 0) amount = -amount
 }
-var moveLeft = moveTo.partial(0),
-    moveRight = moveTo.partial(1)
+var moveLeft = moveTo.partial(0)
+  , moveRight = moveTo.partial(1)
 ```
   
 * Use a `window.setInterval` to limit the functions called when `scroll` event is fired. 
 
 ```javascript
-var isScrollActive = false,
-  	  scrollInterval = window.setInterval(function(){
-        isScrollActive = false
-        // execute handler
-      });
+var isScrollActive = false
+  , scrollInterval = window.setInterval(function(){
+      isScrollActive = false
+      // execute handler
+    });
 
 window.addEventListener("scroll", function(){
-    isScrollActive = true
+  isScrollActive = true
 })
 
 ```

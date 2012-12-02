@@ -146,7 +146,7 @@ var isScrollActive = false
   , scrollInterval = window.setInterval(function(){
       isScrollActive = false
       // execute handler
-    });
+    }, n);
 
 window.addEventListener("scroll", function(){
   isScrollActive = true

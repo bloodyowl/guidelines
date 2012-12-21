@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Javascript-guidelines by mlbli</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Javascript-guidelines</h1>
+        <p>A few JavaScript guidelines</p>
+
+        <p class="view"><a href="https://github.com/mlbli/JavaScript-guidelines">View the Project on GitHub <small>mlbli/JavaScript-guidelines</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mlbli/JavaScript-guidelines/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mlbli/JavaScript-guidelines/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mlbli/JavaScript-guidelines">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>JavaScript guidelines</h2>
+
+<p>Fork it <a href="https://github.com/mlbli/js-guidelines">there</a> and send a pull request to add your contribution. </p>
+
+<h3>General</h3>
+
+<ul>
+<li>Keep your sources clean and legible. 
+
+<ul>
+<li>Keep a regular indentation.</li>
+<li>Keep <code>""</code> <strong>OR</strong> <code>''</code> but not both.</li>
+</ul>
+</li>
+<li>Use variable names that make sense.</li>
+<li>Remember that semicolons are <strong>optional</strong> in JavaScript. 
+In case you rely on ASI : 
+
+<ul>
+<li>
+<code>;</code> before new lines starting with <code>(</code> &amp; <code>[</code>. </li>
+</ul>
+</li>
+<li>Constructor names should be capitalized.</li>
+</ul><div class="highlight"><pre><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+<span class="p">}</span>
+</pre></div>
+
+<ul>
+<li>Make your constructors safer (prevent the global object from being modified in case of <code>new</code> omission).</li>
+</ul><div class="highlight"><pre><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">))</span> <span class="k">return</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+<span class="p">}</span>
+</pre></div>
+
+<ul>
+<li>Declare functions this way for better readability.</li>
+</ul><div class="highlight"><pre><span class="kd">function</span> <span class="nx">name</span><span class="p">(){}</span>
+</pre></div>
+
+<ul>
+<li>Other variables should use a camelized name.</li>
+</ul><div class="highlight"><pre><span class="kd">function</span> <span class="nx">scrollToElement</span><span class="p">(){</span> <span class="cm">/* code here */</span> <span class="p">}</span>
+</pre></div>
+
+<ul>
+<li>Use chaining. </li>
+</ul><div class="highlight"><pre><span class="nx">myElement</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">"foo bar"</span><span class="p">).</span><span class="nx">insert</span><span class="p">(</span><span class="s2">"that text"</span><span class="p">)</span>
+</pre></div>
+
+<ul>
+<li>
+<p>Only use <code>eval</code> for <code>JSON</code> parsing legacy support.</p>
+
+<p><strong>NOTE :</strong> Prefer <code>new Function</code> constructor over <code>eval</code> in that case. </p>
+</li>
+<li><p>Put methods in <code>constructor.prototype</code> instead of putting them directly in the object. </p></li>
+<li><p><strong>NEVER</strong> extend <code>Object.prototype</code>. </p></li>
+<li>
+<p>Use the less globals you can :</p>
+
+<ul>
+<li>Use a namespace if you have a big project or use JSONP and/or flash interactions. </li>
+<li>Lock scopes with self executing anonymous functions. </li>
+</ul>
+</li>
+<li><p>Put your scripts right before <code>&lt;/body&gt;</code></p></li>
+<li><p>Use a conditionnal <code>return</code> statement (as a <code>continue</code> or a <code>break</code> statement) if the function is not over and you don't need what is following. </p></li>
+</ul><div class="highlight"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+
+<ul>
+<li>Don't use <code>try{}catch(e){}</code>.</li>
+<li>
+<p>Use litterals when possible :</p>
+
+<ul>
+<li>
+<code>[]</code> instead of <code>new Array</code>
+</li>
+</ul>
+<p><strong>NOTE</strong> : <code>Array(n)</code> can be faster if you know exactly how many items you put inside the created array. </p>
+
+<ul>
+<li>
+<code>{}</code> instead of <code>new Object</code>
+</li>
+<li>
+<code>""</code> instead of <code>new String</code>
+</li>
+</ul>
+</li>
+<li><p>Use <code>Array.join()</code> instead of a loop when it fits your needs. </p></li>
+</ul><div class="highlight"><pre><span class="s2">"&lt;ul&gt;&lt;li&gt;"</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"baz"</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">"&lt;/li&gt;&lt;li&gt;"</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"&lt;/li&gt;&lt;/ul&gt;"</span>
+</pre></div>
+
+<ul>
+<li>Extend <code>Array.prototype</code>, <code>Function.prototype</code>, <code>String.prototype</code> in order to make your generic methods (<code>each</code>, <code>map</code>, <code>filter</code> ...) cleaner to call. </li>
+<li>Set a variable refering to <code>this</code> when using it : keeps the reference clear when changing scope &amp; runs faster. </li>
+</ul><div class="highlight"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
+  <span class="c1">// …</span>
+<span class="p">}</span>
+</pre></div>
+
+<ul>
+<li>Use <code>Object#hasOwnProperty</code> to filter methods from properties. </li>
+<li>Don't use a <code>string</code> as first argument of <code>window.setTimeout</code> or <code>window.setInterval</code>.</li>
+<li>Declare variables in the top of a function with one <code>var</code>.</li>
+<li>Always check your globals to ensure you didn't forget a <code>var</code> statement or a <code>,</code>. </li>
+<li>
+<code>if</code>, <code>for</code>, <code>while</code> without curly braces if a single action is performed. </li>
+</ul><div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="nx">foo</span><span class="p">){</span>
+  <span class="nx">bar</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// much more clear</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+</pre></div>
+
+<h3>DOM</h3>
+
+<ul>
+<li>Use <code>documentFragment</code> to manipulate big amounts of nodes before inserting them inside the actual <code>document</code>. </li>
+</ul><div class="highlight"><pre><span class="kd">var</span> <span class="nx">fragment</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createDocumentFragment</span><span class="p">()</span>
+  <span class="p">,</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="mi">30</span>
+  <span class="p">,</span> <span class="nx">elementCache</span>
+
+<span class="k">while</span><span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">){</span>
+  <span class="nx">elementCache</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"p"</span><span class="p">)</span>
+  <span class="nx">elementCache</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">"element-"</span> <span class="o">+</span> <span class="nx">i</span>
+  <span class="nx">fragment</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">elementCache</span><span class="p">)</span>
+  <span class="nx">i</span><span class="o">++</span>
+<span class="p">}</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">fragment</span><span class="p">)</span>
+</pre></div>
+
+<ul>
+<li>Use <code>className</code> attribute over <code>style</code> when possible (moreover, it simplifies maintenance)</li>
+</ul><div class="highlight"><pre><span class="nx">myElement</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s2">"active"</span>
+</pre></div>
+
+<ul>
+<li>Don't repeat yourself (use a <code>Function#partial</code> like to reuse a function in different circumstances)</li>
+</ul><div class="highlight"><pre><span class="kd">function</span> <span class="nx">moveTo</span><span class="p">(</span><span class="nx">direction</span><span class="p">,</span> <span class="nx">amount</span><span class="p">){</span>
+    <span class="c1">// some code</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">direction</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">amount</span> <span class="o">=</span> <span class="o">-</span><span class="nx">amount</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">moveLeft</span> <span class="o">=</span> <span class="nx">moveTo</span><span class="p">.</span><span class="nx">partial</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">moveRight</span> <span class="o">=</span> <span class="nx">moveTo</span><span class="p">.</span><span class="nx">partial</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+<ul>
+<li>Use a <code>window.setInterval</code> to limit the functions called when <code>scroll</code> event is fired. </li>
+</ul><div class="highlight"><pre><span class="kd">var</span> <span class="nx">isScrollActive</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="p">,</span> <span class="nx">scrollInterval</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">isScrollActive</span> <span class="o">=</span> <span class="kc">false</span>
+      <span class="c1">// execute handler</span>
+    <span class="p">},</span> <span class="nx">n</span><span class="p">)</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">isScrollActive</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">})</span>
+
+</pre></div>
+
+<ul>
+<li>Don't make your DOM too deep. </li>
+<li>Use <code>removeEventListener</code> and <code>detachEvent</code> if you're done with handlers. </li>
+<li>Cache the elements you reuse. </li>
+<li>Be careful with <code>nodeList</code> which are dynamic. </li>
+<li>Use <code>id</code> attribute when possible to find a unique element (yes, <code>document.getElementsByClassName("slider")[0]</code> is less efficient than <code>document.getElementById("slider")</code>).</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mlbli">mlbli</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>

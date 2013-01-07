@@ -1,163 +1,111 @@
-## JavaScript guidelines
+# Coding Style Guidelines
 
-Fork it [there](https://github.com/mlbli/js-guidelines) and send a pull request to add your contribution. 
+HTML, CSS, JavaScript, Jade & Stylus guidelines. 
 
-### General
+## HTML
 
-* Keep your sources clean and legible. 
-  * Keep a regular indentation.
-  * Keep `""` **OR** `''` but not both.
-* Use variable names that make sense.
-* Remember that semicolons are **optional** in JavaScript. 
-  In case you rely on ASI : 
-    * `;` before new lines starting with `(` & `[`. 
-* Constructor names should be capitalized.
-  
-```javascript
-function Person(name){
-  this.name = name
+* Double-quotes
+* Soft-tabs, 2 spaces
+
+```html
+<div class="foo">
+  <ul>
+    <li>Foo
+    <li>Bar
+    <li>Baz
+  </ul>
+</div>
+```
+
+## CSS
+
+* Soft-tabs, 2 spaces
+* Multiple lines
+* One selector by line
+* One space before `{`
+* One new line after `{`
+* One space after `:`
+* Three chars hexadecimal when possible
+
+```css
+.foo,
+.bar,
+.baz {
+  font-size: 1em;
+  color: #369;
 }
 ```
 
-* Make your constructors safer (prevent the global object from being modified in case of `new` omission).
+## JavaScript
+
+* Soft-tabs, 2 spaces
+* Semicolon-less (One semicolon before new line starting with `(` or `[` thought)
+* Comma-first
+* Single-line `if`, `for`, `while` and co. if only one action performed
+* Paragraphs of code to ease legibility
+* Never comment if the code is easily understandable
+* Double-quotes
+* Capitalized constructor names
+* Use native objects prototypes if more logical
+* Use constructors to namespace related methods (i.e. `Array.from`, `Object.typeOf`) 
 
 ```javascript
-function Person(name){
-  if(!(this instanceof Person)) return new Person(name)
-  this.name = name
-}
-```
-
-* Declare functions this way for better readability.
-
-```javascript
-function name(){}
-```
-
-* Other variables should use a camelized name.
-  
-```javascript
-function scrollToElement(){ /* code here */ }
-```
-
-* Use chaining. 
-
-```javascript
-myElement.addClass("foo bar").insert("that text")
-```
-
-* Only use `eval` for `JSON` parsing legacy support.
-  
-    **NOTE :** Prefer `new Function` constructor over `eval` in that case. 
-   
-* Put methods in `constructor.prototype` instead of putting them directly in the object. 
-* **NEVER** extend `Object.prototype`. 
-* Use the less globals you can :
-    * Use a namespace if you have a big project or use JSONP and/or flash interactions. 
-    * Lock scopes with self executing anonymous functions. 
-* Put your scripts right before `</body>`
-* Use a conditionnal `return` statement (as a `continue` or a `break` statement) if the function is not over and you don't need what is following. 
-
-```javascript
-function foo(bar){
-  if(!bar) return
-}
-```
-  
-* Don't use `try{}catch(e){}`.
-* Use litterals when possible :
-  * `[]` instead of `new Array`
-    
-    **NOTE** : `Array(n)` can be faster if you know exactly how many items you put inside the created array. 
-  * `{}` instead of `new Object`
-  * `""` instead of `new String`
-* Use `Array.join()` instead of a loop when it fits your needs. 
-  
-```javascript
-"<ul><li>" + ["foo", "bar", "baz"].join("</li><li>") + "</li></ul>"
-```
-
-* Extend `Array.prototype`, `Function.prototype`, `String.prototype` in order to make your generic methods (`each`, `map`, `filter` ...) cleaner to call. 
-* Set a variable refering to `this` when using it : keeps the reference clear when changing scope & runs faster. 
-  
-```javascript
-function foo(){
+function each(fn, context){
   var self = this
-  // …
+    , index = 0
+    , length = self.length
+
+  for(;index < length; index++) fn.call(context, self[index], index, self)
+
+  return self
 }
 ```
 
-* Use `Object#hasOwnProperty` to filter methods from properties. 
-* Don't use a `string` as first argument of `window.setTimeout` or `window.setInterval`.
-* Declare variables in the top of a function with one `var`.
-* Always check your globals to ensure you didn't forget a `var` statement or a `,`. 
-* `if`, `for`, `while` without curly braces if a single action is performed. 
-
 ```javascript
-if(foo){
-  bar.call(foo)
+function Hash(object){
+  var self = this
+    , length
+ 
+  if(!(self instanceof Hash)) return new Hash(object)
+  extend(self, object, true)
+  if(object && (length = object.length)) self.length = length
 }
-
-// much more clear
-if(foo) bar.call(foo)
 ```
 
-### DOM
-
-* Use `documentFragment` to manipulate big amounts of nodes before inserting them inside the actual `document`. 
+* Self-executing anonymous functions 
 
 ```javascript
-var fragment = document.createDocumentFragment()
-  , i = 0
-  , l = 30
-  , elementCache
-
-while(i < l){
-  elementCache = document.createElement("p")
-  elementCache.id = "element-" + i
-  fragment.appendChild(elementCache)
-  i++
-}
-
-document.body.appendChild(fragment)
+;(function(window, document){
+  // code here
+})(this, this.document)
 ```
 
-* Use `className` attribute over `style` when possible (moreover, it simplifies maintenance)
+## Jade
 
-```javascript
-myElement.className += "active"
-```
-  
-* Don't repeat yourself (use a `Function#partial` like to reuse a function in different circumstances)
-
-```javascript
-function moveTo(direction, amount){
-    // some code
-    if(direction == 0) amount = -amount
-}
-var moveLeft = moveTo.partial(0)
-  , moveRight = moveTo.partial(1)
-```
-  
-* Use a `window.setInterval` to limit the functions called when `scroll` event is fired. 
-
-```javascript
-var isScrollActive = false
-  , scrollInterval = window.setInterval(function(){
-      isScrollActive = false
-      // execute handler
-    }, n)
-
-window.addEventListener("scroll", function(){
-  isScrollActive = true
-})
+* Soft-tabs, 2 spaces
+* Double-quotes
 
 ```
+!!!5
+html
+  head
+    meta(charset="utf-8")
+    title Foo
+  body
+    h1 Hello
+```
 
-* Don't make your DOM too deep. 
-* Use `removeEventListener` and `detachEvent` if you're done with handlers. 
-* Cache the elements you reuse. 
-* Be careful with `nodeList` which are dynamic. 
-* Use `id` attribute when possible to find a unique element (yes, `document.getElementsByClassName("slider")[0]` is less efficient than `document.getElementById("slider")`).
+## Stylus
 
+* Soft-tabs, 2 spaces
+* Double-quotes
+* Use `:` with one space after
 
+```
+.foo
+.bar
+.baz 
+  @extend .foo
+  font-size: 1em
+  color: #369
+```

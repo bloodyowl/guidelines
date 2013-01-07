@@ -41,7 +41,7 @@ HTML, CSS, JavaScript, Jade & Stylus guidelines.
 * Soft-tabs, 2 spaces
 * Semicolon-less (One semicolon before new line starting with `(` or `[` thought)
 * Comma-first
-* Single-line `if`, `for`, `while` and co. if only one action performed
+* Single-line `if`, `for`, `while` and co. if only one action performed (in that case, use no braces)
 * Paragraphs of code to ease legibility
 * Never comment if the code is easily understandable
 * Double-quotes

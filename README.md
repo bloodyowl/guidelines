@@ -80,12 +80,15 @@ function Hash(object){
 })(this, this.document)
 ```
 
+* Use CommonJS module declaration and browserify to build
+* Test using [tape](https://github.com/substack/tape)
+
 ## Jade
 
 * Soft-tabs, 2 spaces
 * Double-quotes
 
-```
+```jade
 !!!5
 html
   head
@@ -101,7 +104,7 @@ html
 * Double-quotes
 * Use `:` with one space after
 
-```
+```stylus
 .foo
 .bar
 .baz 

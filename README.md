@@ -59,7 +59,6 @@ HTML, CSS, JavaScript, Jade & Stylus guidelines.
 * Capitalized constructor names
 * Try not to get over 80 chars/line
 * Create the smallest functions possible
-* Test using tape/testling
 
 ```javascript
 function each(fn, context){

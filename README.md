@@ -26,6 +26,8 @@ HTML, CSS, JavaScript, Jade & Stylus guidelines.
 * One new line after `{`
 * One space after `:`
 * Three chars hexadecimal when possible
+* use autoprefixer
+* `em` everywhere
 
 ```css
 .foo,
@@ -34,6 +36,16 @@ HTML, CSS, JavaScript, Jade & Stylus guidelines.
   font-size: 1em;
   color: #369;
 }
+```
+
+* BEM
+
+```css
+.org-Block
+.org-Block--modifier
+.org-Block-element
+.org-Block-element--modifier
+.js-ListenerAction
 ```
 
 ## JavaScript
@@ -89,7 +101,7 @@ function Hash(object){
 * Double-quotes
 
 ```jade
-!!!5
+doctype html
 html
   head
     meta(charset="utf-8")
@@ -103,6 +115,8 @@ html
 * Soft-tabs, 2 spaces
 * Double-quotes
 * Use `:` with one space after
+* `/.rtl &` for reversed language
+* `unit(em/@font-size, em)` for legacy `rem`
 
 ```stylus
 .foo

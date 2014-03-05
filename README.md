@@ -53,34 +53,41 @@ HTML, CSS, JavaScript, Jade & Stylus guidelines.
 * Soft-tabs, 2 spaces
 * Semicolon-less (One semicolon before new line starting with `(` or `[` thought)
 * Comma-first
-* Single-line `if`, `for`, `while` and co. if only one action performed (in that case, use no braces)
 * Paragraphs of code to ease legibility
-* Never comment if the code is easily understandable
+* Comment only if the code is not easily understandable
 * Double-quotes
 * Capitalized constructor names
-* Use native objects prototypes if more logical
-* Use constructors to namespace related methods (i.e. `Array.from`, `Object.typeOf`) 
+* Try not to get over 80 chars/line
+* Create the smallest functions possible
+* Test using tape/testling
 
 ```javascript
 function each(fn, context){
-  var self = this
-    , index = 0
-    , length = self.length
+  var array = this
+    , index = -1
+    , length = array.length
 
-  for(;index < length; index++) fn.call(context, self[index], index, self)
+  while(++index < length) {
+    fn.call(context, array[index], index, array)
+  }
 
-  return self
+  return array
 }
 ```
 
 ```javascript
 function Hash(object){
-  var self = this
+  var hash = this
     , length
  
-  if(!(self instanceof Hash)) return new Hash(object)
-  extend(self, object, true)
-  if(object && (length = object.length)) self.length = length
+  if(!(array instanceof Hash)) {
+    return new Hash(object)
+  }
+  extend(array, object, true)
+  length = object.length
+  if(object) {
+    array.length = length
+  }
 }
 ```
 
